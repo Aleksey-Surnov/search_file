@@ -14,8 +14,6 @@ def start_search_rus(): # блок управления поиском на ру
     file_list = list(map(str.lower, input('Введите название искомых файлов и папок через запятую: ').split(','))) # ввод имен для поиска
     file_list = [file_name.strip() for file_name in file_list]
     result=[]
-    print(file_list)
-    print(result)
     result_start, result_end = set(file_list), set()
     file_date_time = str(time.strftime("%Y-%m-%d_%H-%M-%S"))
 
@@ -115,8 +113,6 @@ def start_search_eng(): # english language search control unit
     file_list = list(map(str.lower, input('input name of search files and folders using comma: ').split(','))) # input name of search
     file_list = [file_name.strip() for file_name in file_list]
     result = []
-    print(file_list)
-    print(result)
     result_start, result_end = set(file_list), set()
     file_date_time = str(time.strftime("%Y-%m-%d_%H-%M-%S"))
 
