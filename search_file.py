@@ -56,7 +56,7 @@ def start_search_rus(): # блок управления поиском на ру
                 search_file_in_drive(list_drives, file_name)
         os.system('cls')
 
-    def get_not_find(result_start=set()): # функция получения найденных файлов без адреса в ОС
+    def get_not_find(result_start=set()): # функция получения существующих файлов без адреса в ОС
         cor_result = [name.lower() for name in result]
         for element in result_start:
             for name in cor_result:
@@ -73,14 +73,14 @@ def start_search_rus(): # блок управления поиском на ру
         termcolor.cprint('все имена найдены','green')
     elif result_start-result_end!=set() and result_start-result_end!=result_start:
         result_not_find=list(result_start-result_end)
-        [termcolor.cprint('наименование не найдено: ' + res_not, 'red') for res_not in result_not_find]  # вывод файлов и папок в терминал не найденных на ПК
+        [termcolor.cprint('наименование не найдено: ' + res_not, 'red') for res_not in result_not_find]  # вывод файлов и папок в терминал не существующих на ПК
     elif result_start-result_end!=set() and result_start-result_end==result_start:
         termcolor.cprint('имена не найдены', 'red')
         result_not_find=['имена не найдены']
 
 
     if (file_list == [] or file_list == [' ']): termcolor.cprint('Вы не ввели имена для поиска. Список пуст', 'red')
-    [termcolor.cprint(res_like, 'green') for res_like in result] # вывод файлов и папок в терминал найденных на ПК
+    [termcolor.cprint(res_like, 'green') for res_like in result] # вывод файлов и папок в терминал существующих на ПК
 
 
     def save_search(result=[]): # сохранить результаты поиска
