@@ -69,14 +69,14 @@ def start_search_rus(): # блок управления поиском на ру
     get_file_name(file_list)
     result_end = get_not_find(result_start)
     if result_start-result_end==set():
-        result_not_find=['все имена найденны']
-        termcolor.cprint('все имена найденны','green')
+        result_not_find=['все имена найдены']
+        termcolor.cprint('все имена найдены','green')
     elif result_start-result_end!=set() and result_start-result_end!=result_start:
         result_not_find=list(result_start-result_end)
-        [termcolor.cprint('наименование не найденно: ' + res_not, 'red') for res_not in result_not_find]  # вывод файлов и папок в терминал не найденных на ПК
+        [termcolor.cprint('наименование не найдено: ' + res_not, 'red') for res_not in result_not_find]  # вывод файлов и папок в терминал не найденных на ПК
     elif result_start-result_end!=set() and result_start-result_end==result_start:
-        termcolor.cprint('имена не найденны', 'red')
-        result_not_find=['имена не найденны']
+        termcolor.cprint('имена не найдены', 'red')
+        result_not_find=['имена не найдены']
 
 
     if (file_list == [] or file_list == [' ']): termcolor.cprint('Вы не ввели имена для поиска. Список пуст', 'red')
