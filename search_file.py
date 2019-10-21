@@ -13,6 +13,9 @@ def select_your_language(): # the function for enter your language / функц�
 def start_search_rus(): # блок управления поиском на русском языке
     file_list = list(map(str.lower, input('Введите название искомых файлов и папок через запятую: ').split(','))) # ввод имен для поиска
     file_list = [file_name.strip() for file_name in file_list]
+    result=[]
+    print(file_list)
+    print(result)
     result_start, result_end = set(file_list), set()
     file_date_time = str(time.strftime("%Y-%m-%d_%H-%M-%S"))
 
@@ -55,21 +58,32 @@ def start_search_rus(): # блок управления поиском на ру
                 search_file_in_drive(list_drives, file_name)
         os.system('cls')
 
-    def get_not_find(result_start={}): # функция получения найденных файлов без адреса в ОС
+    def get_not_find(result_start=set()): # функция получения найденных файлов без адреса в ОС
+        cor_result = [name.lower() for name in result]
         for element in result_start:
-            for name in result:
+            for name in cor_result:
                 if name.endswith(element) or ('').join(name.split(".")[:-1]).endswith(element): result_end.add(element)
                 else: continue
         return result_end
 
 
+
     get_file_name(file_list)
     result_end = get_not_find(result_start)
-    result_not_find = list(result_start-result_end)
+    if result_start-result_end==set():
+        result_not_find=['все имена найденны']
+        termcolor.cprint('все имена найденны','green')
+    elif result_start-result_end!=set() and result_start-result_end!=result_start:
+        result_not_find=list(result_start-result_end)
+        [termcolor.cprint('наименование не найденно: ' + res_not, 'red') for res_not in result_not_find]  # вывод файлов и папок в терминал не найденных на ПК
+    elif result_start-result_end!=set() and result_start-result_end==result_start:
+        termcolor.cprint('имена не найденны', 'red')
+        result_not_find=['имена не найденны']
 
+
+    if (file_list == [] or file_list == [' ']): termcolor.cprint('Вы не ввели имена для поиска. Список пуст', 'red')
     [termcolor.cprint(res_like, 'green') for res_like in result] # вывод файлов и папок в терминал найденных на ПК
-    if result==[] or result==[' ']: termcolor.cprint('Вы не ввели имена для поиска. Список пусть', 'red')
-    [termcolor.cprint('наименование не найденно: ' + res_not, 'red') for res_not in result_not_find] # вывод файлов и папок в терминал не найденных на ПК
+
 
     def save_search(result=[]): # сохранить результаты поиска
         with open(f'результат_поиска_{file_date_time}.csv',  'w') as resultFile:
@@ -96,9 +110,13 @@ def start_search_rus(): # блок управления поиском на ру
 
 
 
+
 def start_search_eng(): # english language search control unit
     file_list = list(map(str.lower, input('input name of search files and folders using comma: ').split(','))) # input name of search
     file_list = [file_name.strip() for file_name in file_list]
+    result = []
+    print(file_list)
+    print(result)
     result_start, result_end = set(file_list), set()
     file_date_time = str(time.strftime("%Y-%m-%d_%H-%M-%S"))
 
@@ -143,20 +161,34 @@ def start_search_eng(): # english language search control unit
                 search_file_in_drive(list_drives, file_name)
         os.system('cls') # clear terminal
 
-    def get_not_find(result_start={}): # get found names without address
+    def get_not_find(result_start=set()): # get found names without address
+        cor_result = [name.lower() for name in result]
         for element in result_start:
-            for name in result:
-                if name.endswith(element) or ('').join(name.split(".")[:-1]).endswith(element): result_end.add(element)
-                else: continue
+            for name in cor_result:
+                if name.endswith(element) or ('').join(name.split(".")[:-1]).endswith(element):
+                    result_end.add(element)
+                else:
+                    continue
         return result_end
 
     get_file_name(file_list)
     result_end = get_not_find(result_start)
-    result_not_find = list(result_start - result_end) # get not found names without address
+
+    if result_start-result_end==set():
+        result_not_find=['all names are found']
+        termcolor.cprint('all names are found','green')
+    elif result_start-result_end!=set() and result_start-result_end!=result_start:
+        result_not_find=list(result_start-result_end)
+        [termcolor.cprint('name not found: ' + res_not, 'red') for res_not in result_not_find]  # the output terminal of the not found names
+    elif result_start-result_end!=set() and result_start-result_end==result_start:
+        termcolor.cprint('all names are not found', 'red')
+        result_not_find=['all names are not found']
+
+    print(result) # get not found names without address
 
     [termcolor.cprint(res_like, 'green') for res_like in result]  # the output terminal of the found names
-    if result == [] or result == [' ']: termcolor.cprint('You have not entered a name for the search. The list is empty', 'red')
-    [termcolor.cprint('name not found: ' + res_not, 'red') for res_not in result_not_find]  # the output terminal of the not found names
+    if (file_list  == [] or file_list  == [' ']): termcolor.cprint('You have not entered a name for the search. The list is empty', 'red')
+
 
     def save_search(result=[]): # to save result data
         with open(f'result_search_{file_date_time}.csv',  'w') as resultFile:
@@ -179,6 +211,7 @@ def start_search_eng(): # english language search control unit
             break
         elif quest == False: break
         else: termcolor.cprint('Invalid input. Please try again. Enter [yes/no]', 'red')
+
 
 
 def soft_info_rus(): # функция информирования о программе
@@ -259,6 +292,7 @@ def start_programm(lang=0):
 if __name__ == "__main__":
     letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'  # имена дисков/name of drives
     list_drives = [f'{name_drives}:\\' for name_drives in letters]  # Using f'strings and list comprehension. Create a list of your drives / Использование f'строк  и генератора списка. Создаем спискок из дисков.
-    result = []
     lang = select_your_language()
     start_programm(lang)
+
+
