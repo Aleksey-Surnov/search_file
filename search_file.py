@@ -210,7 +210,7 @@ def start_search_eng(): # english language search control unit
 
 
 
-def soft_info_rus(): # функция информирования о программе
+def soft_info_rus(): # функция информирования о программе поиска
     termcolor.cprint('-------------------------------------------------------', 'blue')
     termcolor.cprint('ПРОГРАММА ДОЛЖНА БЫТЬ ЗАПУЩЕННА ОТ ИМЕНИ АДМИНИСТРАТОРА', 'yellow')
     termcolor.cprint('ИНАЧЕ ВОЗНИКНЕТ ОШИБКА И ПРИЛОЖЕНИЕ НЕ СМОЖЕТ РАБОТАТЬ', 'yellow')
