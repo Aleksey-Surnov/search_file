@@ -3,5 +3,5 @@ termcolor==1.1.0
 tqdm==4.36.1
 colorama==0.4.1
 comtypes==1.1.7
-pywin32==224
+pywin32==301
 pywin32-ctypes==0.2.0
